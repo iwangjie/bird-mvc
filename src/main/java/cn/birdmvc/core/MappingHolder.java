@@ -72,7 +72,7 @@ public class MappingHolder {
             for (String className :
                     controllerClassNameList) {
                 Class<?> clazz = Class.forName(className);
-                String requestPath = "/"+className.substring(className.lastIndexOf(FILE_SUFFFIX.substring(0,FILE_SUFFFIX.lastIndexOf(".")))).toLowerCase();
+                String requestPath = "/"+className.substring(basePakage.length()+1,className.lastIndexOf(FILE_SUFFFIX.substring(0,FILE_SUFFFIX.lastIndexOf(".")))).toLowerCase();
                 mapping.put(requestPath,clazz.newInstance());
                 log.info("====>mapping add "+requestPath+"to "+className);
             }
