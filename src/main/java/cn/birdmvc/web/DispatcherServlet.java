@@ -54,6 +54,6 @@ public class DispatcherServlet extends HttpServlet{
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        //获取请求地址
     }
 }

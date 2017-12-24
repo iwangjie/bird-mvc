@@ -23,7 +23,7 @@ public class MappingHolder {
     private static String basePakage;
 
     //扫描文件的基础路径
-    private static String basePath;
+    private static String baseFilePath;
 
     //扫描文件后缀
     private static String FILE_SUFFFIX = "Controller.class";
@@ -60,12 +60,12 @@ public class MappingHolder {
         mapping = new HashMap<String, Object>();
         controllerClassNameList = new ArrayList<String>();
 
-        basePakage = basePakage.replaceAll("\\.", "/");
+        String basePath = basePakage.replaceAll("\\.", "/");
 
         try {
             URI uri = Thread.currentThread().getContextClassLoader().getResource(basePath).toURI();
             File file = new File(uri);
-            basePath = file.getPath();
+            baseFilePath = file.getPath();
             initControllerClassNameList(file);
 
             //循环增加Mapping
@@ -100,11 +100,11 @@ public class MappingHolder {
         } else {
             String path = file.getPath();
             if (path.endsWith(FILE_SUFFFIX)) {
-                String absolutePath = file.getAbsolutePath();
-                path = path.substring(basePakage.length(), path.lastIndexOf("."));
+                path = path.substring(baseFilePath.length(), path.lastIndexOf("."));
                 path = path.replaceAll("\\\\", ".");
-                if (path.startsWith(".")) path = path.substring(1);
-                controllerClassNameList.add(path);
+                String className = basePakage+path;
+                if (className.startsWith(".")) path = className.substring(1);
+                controllerClassNameList.add(className);
             }
         }
     }

@@ -4,4 +4,31 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  
+  <servlet>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>cn.birdmvc.web.DispatcherServlet</servlet-class>
+    <!--下面的init-param并不是必须的，如果你要使用默认值的话。-->
+    <init-param>
+      <param-name>basePackage</param-name>
+      <!--默认值是根包-->
+      <param-value>cn.birdmvc.controller</param-value>
+    </init-param>
+    <init-param>
+      <param-name>viewPrefix</param-name>
+      <!--这是默认值-->
+      <param-value>/WEB-INF/views/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>viewSuffix</param-name>
+      <!--这是默认值-->
+      <param-value>.jsp</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
 </web-app>
