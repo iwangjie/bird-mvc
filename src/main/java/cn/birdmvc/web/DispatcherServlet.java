@@ -106,6 +106,8 @@ public class DispatcherServlet extends HttpServlet{
      * @param object
      */
     protected void render(HttpServletRequest req,HttpServletResponse resp,Object object){
+
+
         if(object instanceof String){
             String viewPath = viewPrefix+(String) object+viewSuffix;
             try {
@@ -117,8 +119,33 @@ public class DispatcherServlet extends HttpServlet{
             }
         }
 
+        if(object instanceof Result){
+            Result rs = (Result) object;
+            String viewPath = viewPrefix+rs.getView()+viewSuffix;
+            Map<String, Object> model = rs.getModel();
+            modelAddAll(req,model);
+            try {
+                req.getRequestDispatcher(viewPath).forward(req,resp);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
+    /**
+     * 添加所有参数到Request
+     * @param req
+     * @param model
+     */
+    private void modelAddAll(HttpServletRequest req, Map<String, Object> model) {
+        for (Map.Entry<String,Object> entry:
+             model.entrySet()) {
+            req.setAttribute(entry.getKey(),entry.getValue());
+        }
+    }
 
 
     /**
