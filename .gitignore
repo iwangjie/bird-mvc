@@ -92,6 +92,4 @@ buildNumber.properties
 .idea/misc.xml
 .idea/modules.xml
 bird-mvc.iml
-pom.xml
-src/
 /.idea/
