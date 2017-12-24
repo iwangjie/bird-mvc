@@ -10,8 +10,9 @@ import org.slf4j.LoggerFactory;
  */
 public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
-    
-    public Result index(){
-        return Result.newInstance().setView("home");
+
+    public Result index(String name,Result result){
+        System.out.println("name"+name);
+        return result.setView("home");
     }
 }

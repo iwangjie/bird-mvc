@@ -1,5 +1,6 @@
 package cn.birdmvc.web;
 
+import cn.birdmvc.core.HandlerMethodArgsBuilder;
 import cn.birdmvc.core.MappingHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,7 +90,8 @@ public class DispatcherServlet extends HttpServlet{
      */
     protected void doDispatch(HttpServletRequest req,HttpServletResponse resp,Object controller,Method method){
         try {
-            Object result = method.invoke(controller, null);
+            Object[] args = new HandlerMethodArgsBuilder(req, resp, method, controller).build();
+            Object result = method.invoke(controller, args);
             render(req,resp,result);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -106,7 +108,6 @@ public class DispatcherServlet extends HttpServlet{
      * @param object
      */
     protected void render(HttpServletRequest req,HttpServletResponse resp,Object object){
-
 
         if(object instanceof String){
             String viewPath = viewPrefix+(String) object+viewSuffix;
